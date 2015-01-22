@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import ru.roman.pammcontr.service.ServiceFactory;
 import ru.roman.pammcontr.service.http.HttpClientService;
 import ru.roman.pammcontr.service.translate.dto.YandexWordTranslation;
-import ru.roman.pammcontr.util.BimException;
+import ru.roman.pammcontr.util.AppException;
 
 import java.util.*;
 
@@ -89,7 +89,7 @@ public class GoogleService implements TranslationService{
             final char c = chArr[idx[0]];
             if (idx[0] == startIdx) {
                 if (c != '[') {
-                    throw new BimException("Error while parsing string array, first symbol must be bracket : "
+                    throw new AppException("Error while parsing string array, first symbol must be bracket : "
                     + String.valueOf(chArr));
                 }
                 continue;

@@ -28,9 +28,9 @@ public class StartApp {
             @Override
             protected void onSuccess(Void result) {
                 prepareEnvironment();
-                prepareSettings(new CallBackChain<UserSettingsModel>() {
+                prepareSettings(new CallBackChain<Void>() {
                     @Override
-                    public void onSuccess(UserSettingsModel sett) {
+                    public void onSuccess(Void sett) {
                         PaineFactory.createMainView();
                         LockerUtils.tryLockApplication();
                     }
@@ -67,9 +67,10 @@ public class StartApp {
         }
     }
 
-    private static void prepareSettings(CallBackChain<UserSettingsModel> callBack) {
+    private static void prepareSettings(CallBackChain<Void> callBack) {
         if (Settings.get() == null) {
             Settings.createInitialSettings();
         }
+        callBack.run();
     }
 }

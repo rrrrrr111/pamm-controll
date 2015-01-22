@@ -51,7 +51,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "textShadowed",
     "type"
 })
-public class BimItemModel {
+public class PammControllItemModel {
 
     protected Long category;
     @XmlSchemaType(name = "dateTime")

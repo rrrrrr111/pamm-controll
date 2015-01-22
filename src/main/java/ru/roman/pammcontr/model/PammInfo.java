@@ -6,8 +6,28 @@ package ru.roman.pammcontr.model;
 public class PammInfo {
 
     protected String name;
+    protected Long num;
     protected Double profitLossPercent;
     protected boolean flagToIgnoreDropDown;
+
+
+    public PammInfo() {
+    }
+
+    public PammInfo(String name, Long num, Double profitLossPercent, boolean flagToIgnoreDropDown) {
+        this.name = name;
+        this.num = num;
+        this.profitLossPercent = profitLossPercent;
+        this.flagToIgnoreDropDown = flagToIgnoreDropDown;
+    }
+
+    public Long getNum() {
+        return num;
+    }
+
+    public void setNum(Long num) {
+        this.num = num;
+    }
 
     public String getName() {
         return name;

@@ -11,7 +11,7 @@ public class UserSettingsModel {
 
     protected Double checkFastPammInterval;
     protected String fastPammUrl;
-    protected Long minimalPercentLevelToControl;
+    protected Double minimalPercentLevelToControl;
     protected Date lastCheckDate;
     protected XMLGregorianCalendar settingsEditDate;
     protected String lookAndFeel;
@@ -36,11 +36,11 @@ public class UserSettingsModel {
         this.fastPammUrl = fastPammUrl;
     }
 
-    public Long getMinimalPercentLevelToControl() {
+    public Double getMinimalPercentLevelToControl() {
         return minimalPercentLevelToControl;
     }
 
-    public void setMinimalPercentLevelToControl(Long minimalPercentLevelToControl) {
+    public void setMinimalPercentLevelToControl(Double minimalPercentLevelToControl) {
         this.minimalPercentLevelToControl = minimalPercentLevelToControl;
     }
 

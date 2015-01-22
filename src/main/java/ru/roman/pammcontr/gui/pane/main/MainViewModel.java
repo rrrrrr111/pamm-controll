@@ -2,12 +2,12 @@ package ru.roman.pammcontr.gui.pane.main;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import ru.roman.pammcontr.gui.common.mvc.Model;
-import ru.roman.pammcontr.model.BimItemModel;
+import ru.roman.pammcontr.model.PammControllItemModel;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /** @author Roman 19.12.12 23:36 */
-public class MainViewModel extends BimItemModel implements Model {
+public class MainViewModel extends PammControllItemModel implements Model {
 
     public MainViewModel() {
         super();
@@ -29,7 +29,7 @@ public class MainViewModel extends BimItemModel implements Model {
         this.editDate = editDate;
     }
 
-    public MainViewModel(BimItemModel model) {
+    public MainViewModel(PammControllItemModel model) {
         this(
                 model.getId(),
                 model.getTextFaced(),

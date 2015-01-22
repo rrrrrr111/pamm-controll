@@ -57,7 +57,7 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
     }
 
     protected void onNext(CallBackChain<MainViewModel> nextCallBack) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
 

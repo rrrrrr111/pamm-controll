@@ -6,18 +6,15 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.roman.pammcontr.StartApp;
-import ru.roman.pammcontr.gui.common.validator.BimValidationException;
+import ru.roman.pammcontr.gui.common.validator.AppValidationException;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Roman
- * Date: 01.09.12
- * Time: 0:46
- * To change this template use File | Settings | File Templates.
  */
 public class ExceptionHandler {
     private static final Log log = LogFactory.getLog(ExceptionHandler.class);
@@ -42,7 +39,7 @@ public class ExceptionHandler {
             Validate.notNull(t);
             final String mess = createErrorText(t);
             final String title;
-            if (t instanceof BimValidationException) {
+            if (t instanceof AppValidationException) {
                 ERR_PAINE.setMessageType(JOptionPane.WARNING_MESSAGE);
                 title = Const.APP_NAME + " validation error";
             } else {
@@ -60,7 +57,9 @@ public class ExceptionHandler {
     private static String createErrorText(Throwable e) {
         final StrBuilder ms = new StrBuilder();
         String mess;
+        Throwable orex = null;
         while (e != null) {
+            orex = e;
             if (e instanceof SQLException) {
                 SQLException se = (SQLException)e;
                 checkMess(se.getMessage(), ms, "");
@@ -78,6 +77,9 @@ public class ExceptionHandler {
             ms.append(" : ");
         }
         mess = ms.substring(0, ms.length()-3).replace(" :  : ", " : ");
+        if(StringUtils.isBlank(mess)) {
+            mess = ("System error" + (orex != null ? " : " + orex.getClass().getSimpleName() : ""));
+        }
         return mess;
     }
 

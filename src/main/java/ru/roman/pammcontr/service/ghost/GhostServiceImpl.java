@@ -3,7 +3,7 @@ package ru.roman.pammcontr.service.ghost;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.roman.pammcontr.gui.pane.settings.Settings;
-import ru.roman.pammcontr.util.BimException;
+import ru.roman.pammcontr.util.AppException;
 import ru.roman.pammcontr.util.Const;
 
 import javax.swing.*;
@@ -28,16 +28,9 @@ public class GhostServiceImpl implements GhostService {
 
     public GhostServiceImpl(GhostController ctrl) {
         this.controller = ctrl;
-
-        if (Const.DEV_MODE) {
-            mainInterval = 15 * 1000;
-            thirstDelay = 1 * 1000;
-            showInterval = 3 * 1000;
-        } else {
-            mainInterval = toMilliSec(Settings.get().getCheckFastPammInterval());
-            thirstDelay = mainInterval;
-            showInterval = toMilliSec(Settings.get().getPreviewDuration());
-        }
+        mainInterval = toMilliSec(Settings.get().getCheckFastPammInterval());
+        thirstDelay = (Const.DEV_MODE ? 1000 : mainInterval);
+        showInterval = toMilliSec(Settings.get().getPreviewDuration());
 
         mainTicker = new Timer(mainInterval, new ActionListener() {
             @Override
@@ -73,9 +66,9 @@ public class GhostServiceImpl implements GhostService {
 
     private void loadTimers() {
         if (mainInterval < 60000 && !Const.DEV_MODE) {
-            throw new BimException("Main interval can't be less then 1 minute");
+            throw new AppException("Main interval can't be less then 1 minute");
         } else if (showInterval < 1000) {
-            throw new BimException("Preview duration can't be less then 1 second");
+            throw new AppException("Preview duration can't be less then 1 second");
         }
         mainTicker.setInitialDelay(thirstDelay);
         mainTicker.setDelay(mainInterval);
@@ -105,7 +98,7 @@ public class GhostServiceImpl implements GhostService {
 
     public static int toMilliSec(Double inMin) {
         if (inMin == null || (inMin > (Integer.MAX_VALUE / MILLISEC_IN_MIN)) || inMin < 0.05d) {
-            throw new BimException("Wrong value for conversion Min to Milliseconds : " + inMin);
+            throw new AppException("Wrong value for conversion Min to Milliseconds : " + inMin);
         }
         return (int)(inMin * MILLISEC_IN_MIN);
     }

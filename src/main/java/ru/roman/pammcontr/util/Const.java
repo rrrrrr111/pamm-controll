@@ -9,7 +9,7 @@ import org.apache.commons.io.FileUtils;
  */
 public interface Const {
 
-    boolean DEV_MODE = false;  //
+    boolean DEV_MODE = true;  //
 
     String VERSION = "1.0";
     String APP_NAME = "PammControll";

@@ -10,7 +10,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import ru.roman.pammcontr.util.BimException;
+import ru.roman.pammcontr.util.AppException;
 
 import java.net.URI;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class HttpClientServiceImpl implements HttpClientService {
                 //    throw new BimException(String.format("Content length %s not supported by service", len));
                 //}
             } else {
-                throw new BimException(String.format("Response entity is null"));
+                throw new AppException(String.format("Response entity is null"));
             }
         } catch (Exception e) {
             throw new RuntimeException("Exception in HTTP-Client service", e);

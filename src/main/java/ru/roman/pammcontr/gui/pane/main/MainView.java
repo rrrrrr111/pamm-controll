@@ -248,7 +248,7 @@ public class MainView extends JWindow implements View<MainViewModel, MainView, M
     public void fillWidgets(MainViewModel model) {
         setText(model.getTextFaced());
         typeLabel.setText("заглушка");
-        setRating(model.getRating().intValue());
+        //setRating(model.getRating().intValue());
 
         titledEmptyBorder.setTitle(String.format("%s", "заглушка"));
     }

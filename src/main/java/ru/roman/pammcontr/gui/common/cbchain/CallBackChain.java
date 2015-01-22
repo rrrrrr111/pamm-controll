@@ -71,6 +71,10 @@ public abstract class CallBackChain<T> {
         }
     }
 
+    public void run() {
+        this.run(null);
+    }
+
     private void runSuccess(T result) {
         try {
             onSuccess(result);
@@ -146,5 +150,4 @@ public abstract class CallBackChain<T> {
     public CallBackChain<T> getNext() {
         return next;
     }
-
 }

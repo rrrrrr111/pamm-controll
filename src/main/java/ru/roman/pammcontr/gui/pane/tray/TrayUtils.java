@@ -2,7 +2,7 @@ package ru.roman.pammcontr.gui.pane.tray;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.roman.pammcontr.util.BimException;
+import ru.roman.pammcontr.util.AppException;
 import ru.roman.pammcontr.util.Const;
 import ru.roman.pammcontr.util.GuiUtil;
 
@@ -25,7 +25,7 @@ public class TrayUtils {
 
         //Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
-            throw new BimException("SystemTray is not supported by platform");
+            throw new AppException("SystemTray is not supported by platform");
         }
 
         removeTrayIcon();
@@ -57,7 +57,7 @@ public class TrayUtils {
             final SystemTray tray = SystemTray.getSystemTray();
             tray.add(trayIcon);
         } catch (Exception e) {
-            throw new BimException("TrayIcon could not be added", e);
+            throw new AppException("TrayIcon could not be added", e);
         }
 
 

@@ -37,17 +37,21 @@ public class XmlConfigServiceImpl implements XmlConfigService {
 
     public <T> T loadConfig(String fileName, XmlReader<T> reader) {
 
+        FileInputStream fis = null;
         final String configFullName = XmlUtils.prepareConfig(fileName);
-        FileInputStream is = null;
+        final File file = new File(configFullName);
+        if (!file.exists()) {
+            return null;
+        }
         try {
-            is = new FileInputStream(configFullName);
-            final Document doc = XmlUtils.readDocument(is);
+            fis = new FileInputStream(file);
+            final Document doc = XmlUtils.readDocument(fis);
             //log.trace("Loaded XML : \n" + docToString(doc));
             return reader.read(doc);
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
-            IOUtils.closeQuietly(is);
+            IOUtils.closeQuietly(fis);
         }
     }
 
