@@ -20,7 +20,6 @@ public class TrayJPopupMenu extends JPopupMenu {
 
         // Create a pop-up menu components
         final JMenuItem  aboutItem = new JMenuItem("About", GuiUtil.createMainIcon());
-        final JMenuItem clearCacheItem = new JMenuItem("Clear cache");
         final JMenuItem infoItem = new JMenuItem();
         infoItem.setEnabled(false);
         cbDisabled = new JCheckBoxMenuItem("Disabled   Alt+D");
@@ -28,7 +27,6 @@ public class TrayJPopupMenu extends JPopupMenu {
 
         //Add components to pop-up menu
         add(aboutItem);
-        add(clearCacheItem);
         addSeparator();
         add(cbDisabled);
         addSeparator();
@@ -37,11 +35,6 @@ public class TrayJPopupMenu extends JPopupMenu {
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.onShowInfo();
-            }
-        });
-        clearCacheItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                controller.onClearCache();
             }
         });
         cbDisabled.addItemListener(new ItemListener() {

@@ -18,7 +18,6 @@ public class TrayPopupMenu extends PopupMenu {
 
         // Create a pop-up menu components
         final MenuItem aboutItem = new MenuItem("About");
-        final MenuItem clearCacheItem = new MenuItem("Clear cache");
         final MenuItem infoItem = new MenuItem();
         infoItem.setEnabled(false);
         final CheckboxMenuItem cbDisabled = new CheckboxMenuItem("Disabled");
@@ -26,7 +25,6 @@ public class TrayPopupMenu extends PopupMenu {
 
         //Add components to pop-up menu
         add(aboutItem);
-        add(clearCacheItem);
         addSeparator();
         add(cbDisabled);
         addSeparator();
@@ -35,12 +33,6 @@ public class TrayPopupMenu extends PopupMenu {
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.onShowInfo();
-            }
-        });
-
-        clearCacheItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                controller.onClearCache();
             }
         });
 

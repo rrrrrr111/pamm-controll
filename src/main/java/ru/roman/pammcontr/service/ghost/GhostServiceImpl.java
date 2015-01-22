@@ -34,7 +34,7 @@ public class GhostServiceImpl implements GhostService {
             thirstDelay = 1 * 1000;
             showInterval = 3 * 1000;
         } else {
-            mainInterval = toMilliSec(Settings.get().getPreviewInterval());
+            mainInterval = toMilliSec(Settings.get().getCheckFastPammInterval());
             thirstDelay = mainInterval;
             showInterval = toMilliSec(Settings.get().getPreviewDuration());
         }

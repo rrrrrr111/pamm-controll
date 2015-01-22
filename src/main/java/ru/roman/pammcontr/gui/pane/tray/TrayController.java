@@ -37,10 +37,6 @@ public class TrayController {
         GuiUtil.showInfoMessage("This is Bim  v." + Const.VERSION);
     }
 
-    public void onClearCache() {
-        PaineFactory.getMainViewController().getLocalCache().clearCache();
-    }
-
     public void onStateChanged(ItemEvent e) {
         int cb1Id = e.getStateChange();
         if (cb1Id == ItemEvent.SELECTED){

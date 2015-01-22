@@ -151,7 +151,7 @@ public class MainView extends JWindow implements View<MainViewModel, MainView, M
         checkPanel = new TiedCheckBoxPanel(new TiedCheckBoxPanel.OnChangeCallBack() {
             @Override
             public void OnChange(int rating) {
-                controller.onRatingChange(rating);
+                throw new UnsupportedOperationException();
             }
         });
         final GridBagConstraints gbc7 = new GridBagConstraints();

@@ -14,19 +14,19 @@ public class XmlGregorianCalendarHandler implements FieldHandler {
     @Override
     public Object getValue(Object object) throws IllegalStateException {
         UserSettingsModel model = (UserSettingsModel)object;
-        return WsUtil.asDate(model.getEditDate());
+        return WsUtil.asDate(model.getSettingsEditDate());
     }
 
     @Override
     public void setValue(Object object, Object value) throws IllegalStateException, IllegalArgumentException {
         UserSettingsModel model = (UserSettingsModel)object;
-        model.setEditDate(WsUtil.asXMLGregorianCalendar((Date) value));
+        model.setSettingsEditDate(WsUtil.asXMLGregorianCalendar((Date) value));
     }
 
     @Override
     public void resetValue(Object object) throws IllegalStateException, IllegalArgumentException {
         UserSettingsModel model = (UserSettingsModel)object;
-        model.setEditDate(null);
+        model.setSettingsEditDate(null);
     }
 
     @Override

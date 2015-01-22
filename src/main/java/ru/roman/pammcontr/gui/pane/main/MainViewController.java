@@ -11,8 +11,7 @@ import ru.roman.pammcontr.gui.custom.widget.TransparentWindowSupport;
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
 import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.service.ServiceFactory;
-import ru.roman.pammcontr.service.cache.LocalCache;
-import ru.roman.pammcontr.service.cache.LocalCacheFactory;
+
 import ru.roman.pammcontr.service.config.ConfigService;
 import ru.roman.pammcontr.service.ghost.GhostController;
 import ru.roman.pammcontr.service.ghost.GhostService;
@@ -25,7 +24,6 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
 
 
     private final ConfigService configService = ServiceFactory.getConfigService();
-    private LocalCache localCache;
     private final OpacityTimer opacityTimer;
     private final GhostService ghostService;
     private final TranslationService yaTranslator = ServiceFactory.getYandexService();
@@ -48,48 +46,19 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
         state = State.SCHEDULED;
         TrayUtils.addTrayIcon();
         final UserSettingsModel sett = configService.loadSettingsConfig();
-        localCache = LocalCacheFactory.createLocalCacheInstance(sett.getCurrentNum(), sett.getRecordsCount());
-        currModel = localCache.getCurrentSync();
+        currModel = new MainViewModel(); // TODO
         view.fillWidgets(currModel);
         ghostService.start();
 
     }
 
-
-    protected void onRatingChange(Integer rating) {
-        //log.info("rating changed to " + rating);
-        currModel.setRating(rating.longValue());
-
-    }
-
     protected void onPrev() {
-        localCache.getPrev(new CallBackChain<MainViewModel>() {
-            @Override
-            public void onSuccess(MainViewModel model) {
-                currModel = model;
-                view.fillWidgets(currModel);
-            }
-        });
+        throw new UnsupportedOperationException();
     }
 
     protected void onNext(CallBackChain<MainViewModel> nextCallBack) {
-        localCache.getNext(new CallBackChain<MainViewModel>(null, nextCallBack) {
-            @Override
-            public void onSuccess(MainViewModel model) {
-                currModel = model;
-                view.fillWidgets(currModel);
-            }
-        });
+        throw new UnsupportedOperationException();
     }
-
-    private static enum TranslationState {
-        FACED,
-        GOOGLE,
-        YANDEX_WORD,
-        YANDEX_EXPRESSION,
-    }
-
-
 
 
     protected void onTranslate() {
@@ -159,10 +128,6 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
         }
         log.info("Changing main state to " + state);
         this.state = state;
-    }
-
-    public LocalCache getLocalCache() {
-        return localCache;
     }
 
     public void startGhostFromOpened() {

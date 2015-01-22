@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+        "http://castor.org/mapping.dtd">
+<mapping>
+    <description></description>
+    <class name="ru.roman.pammcontr.gui.pane.main.MainViewModel">
+        <map-to xml="MainViewModel"/>
+        <field name="id" type="long">
+            <bind-xml name="id" node="element"/>
+        </field>
+        <field name="facedLangId" type="long">
+            <bind-xml name="facedLangId" node="element"/>
+        </field>
+        <field name="modelNum" type="long">
+            <bind-xml name="modelNum" node="element"/>
+        </field>
+        <field name="category" type="long">
+            <bind-xml name="category" node="element"/>
+        </field>
+        <field name="owner" type="long">
+            <bind-xml name="owner" node="element"/>
+        </field>
+        <field name="rating" type="long">
+            <bind-xml name="rating" node="element"/>
+        </field>
+        <field name="shadowedLangId" type="long">
+            <bind-xml name="shadowedLangId" node="element"/>
+        </field>
+        <field name="textFaced" type="string">
+            <bind-xml name="textFaced" node="element"/>
+        </field>
+        <field name="textShadowed" type="string">
+            <bind-xml name="textShadowed" node="element"/>
+        </field>
+        <field name="type" type="long">
+            <bind-xml name="type" node="element"/>
+        </field>
+    </class>
+
+    <class name="ru.roman.pammcontr.model.PammInfo">
+        <map-to xml="PammInfo"/>
+        <field name="name" type="string">
+            <bind-xml name="name" node="element"/>
+        </field>
+        <field name="profitLossPercent" type="double">
+            <bind-xml name="profitLossPercent" node="element"/>
+        </field>
+        <field name="flagToIgnoreDropDown" type="boolean">
+            <bind-xml name="flagToIgnoreDropDown" node="element"/>
+        </field>
+    </class>
+
+    <class name="ru.roman.pammcontr.model.UserSettingsModel">
+        <map-to xml="UserSettingsModel"/>
+        <field name="checkFastPammInterval" type="double">
+            <bind-xml name="checkFastPammInterval" node="element"/>
+        </field>
+        <field name="fastPammUrl" type="string">
+            <bind-xml name="fastPammUrl" node="element"/>
+        </field>
+        <field name="minimalPercentLevelToControl" type="long">
+            <bind-xml name="minimalPercentLevelToControl" node="element"/>
+        </field>
+        <field name="lastCheckDate" type="date">
+            <bind-xml name="lastCheckDate" node="element"/>
+        </field>
+        <field name="settingsEditDate" type="date" handler="ru.roman.pammcontr.service.config.XmlGregorianCalendarHandler">
+            <bind-xml name="settingsEditDate" node="element"/>
+        </field>
+        <field name="lookAndFeel" type="string">
+            <bind-xml name="lookAndFeel" node="element"/>
+        </field>
+        <field name="opacity" type="double">
+            <bind-xml name="opacity" node="element"/>
+        </field>
+        <field name="previewDuration" type="double">
+            <bind-xml name="previewDuration" node="element"/>
+        </field>
+        <field name="disabilityDuration" type="double">
+            <bind-xml name="disabilityDuration" node="element"/>
+        </field>
+        <field name="pammInfoList" type="PammInfo" collection="collection">
+            <bind-xml name="pammInfoList" node="element"/>
+        </field>
+    </class>
+
+
+
+
+    <!--
+
+    -
+If there is no 'collection' attribute, the <type> is just the Java type specified in <type_attribute>
+(the value of the 'type' attribute in the XML document). The value of <type_attribute> can be a fully
+qualified Java object like 'java.lang.String' or one of the allowed short name:
+
+short name	    Primitive type?	    Java Class
+other	        N	                java.lang.Object
+string	        N	                java.lang.String
+integer	        Y                	java.lang.Integer.TYPE
+long	        Y	                java.lang.Long.TYPE
+boolean     	Y                	java.lang.Boolean.TYPE
+double	        Y	                java.lang.Double.TYPE
+float	        Y	                java.lang.Float.TYPE
+big-decimal	    N	                java.math.BigDecimal
+byte        	Y                	java.lang.Byte.TYPE
+date        	N	                java.util.Date
+short	        Y                	java.lang.Short.TYPE
+char	        Y                	java.lang.Character.TYPE
+bytes       	N                	byte[]
+chars	        N	                char[]
+strings	        N	                String[]
+locale      	N	                java.util.Locale
+
+Castor will try to cast the data in the XML file in the proper Java type.
+
+If there is a collection attribute, you can use the following table:
+name	        <type>	                default implementation
+array	        <type_attribute>[]	    <type_attribute>[]
+vector	        java.util.Vector	    java.util.Vector
+hashtable	    java.util.Hashtable	    java.util.Hashtable
+collection	    java.util.Collection	java.util.Arraylist
+set	            java.util.Set	        java.util.Hashset
+map	            java.util.Map	        java.util.Hashmap
+
+The type of the object inside the collection is <type_attribute>.
+The 'default implementation' is the type used if the object holding the collection is found to be null and
+need to be instantiated.
+
+For hashtable and map, Castor will add an object with put(object, object): the object is both the key and
+the value. This will be improved in the future.
+
+    -->
+
+
+</mapping>
