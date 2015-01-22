@@ -5,13 +5,12 @@ import org.apache.commons.logging.LogFactory;
 import ru.roman.pammcontr.gui.common.cbchain.CallBackChain;
 import ru.roman.pammcontr.gui.pane.main.MainViewModel;
 import ru.roman.pammcontr.gui.pane.settings.Settings;
-import ru.roman.pammcontr.gui.pane.settings.SettingsViewModel;
-import ru.roman.pammcontr.service.ServiceFactory;
+
 
 import ru.roman.pammcontr.model.BimItemModel;
 
+import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.util.BimException;
-import ru.roman.pammcontr.util.WsUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -105,7 +104,7 @@ public class LocalCacheImpl implements LocalCache {
 
 
     private void checkCacheState(final CallBackChain<MainViewModel> callBack) {
-        final SettingsViewModel sett = Settings.get();
+        final UserSettingsModel sett = Settings.get();
         // ������ ��������
         final int portion = sett.getPortion().intValue();
         // ����� ������ � �������

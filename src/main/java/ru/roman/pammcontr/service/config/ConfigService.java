@@ -1,6 +1,6 @@
 package ru.roman.pammcontr.service.config;
 
-import ru.roman.pammcontr.gui.pane.settings.SettingsViewModel;
+import ru.roman.pammcontr.model.UserSettingsModel;
 
 /** @author Roman 26.01.13 0:28
  *
@@ -22,12 +22,12 @@ public interface ConfigService {
      *
      * @return
      */
-    SettingsViewModel loadSettingsConfig();
+    UserSettingsModel loadSettingsConfig();
 
     /**
      * ��������� ��������� � ����
      *
      * @param model
      */
-    void saveSettingsConfig(SettingsViewModel model);
+    void saveSettingsConfig(UserSettingsModel model);
 }

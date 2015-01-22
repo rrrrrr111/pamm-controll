@@ -136,7 +136,7 @@ public class MainView extends JWindow implements View<MainViewModel, MainView, M
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.onEdit();
+                throw new UnsupportedOperationException();
             }
         });
         hideButton.addActionListener(new ActionListener() {

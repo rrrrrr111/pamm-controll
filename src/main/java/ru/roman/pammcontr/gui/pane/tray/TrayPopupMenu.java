@@ -22,8 +22,6 @@ public class TrayPopupMenu extends PopupMenu {
         final MenuItem infoItem = new MenuItem();
         infoItem.setEnabled(false);
         final CheckboxMenuItem cbDisabled = new CheckboxMenuItem("Disabled");
-        final MenuItem editMenu = new MenuItem("Edit");
-        final MenuItem settingsMenu = new MenuItem("Settings");
         final MenuItem exitItem = new MenuItem("Exit");
 
         //Add components to pop-up menu
@@ -32,8 +30,6 @@ public class TrayPopupMenu extends PopupMenu {
         addSeparator();
         add(cbDisabled);
         addSeparator();
-        add(editMenu);
-        add(settingsMenu);
         add(exitItem);
 
         aboutItem.addActionListener(new ActionListener() {
@@ -51,18 +47,6 @@ public class TrayPopupMenu extends PopupMenu {
         cbDisabled.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 controller.onStateChanged(e);
-            }
-        });
-
-        editMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                controller.onShowEdit();
-            }
-        });
-
-        settingsMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                controller.onShowSettings();
             }
         });
 

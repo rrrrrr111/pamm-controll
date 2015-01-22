@@ -3,7 +3,7 @@ package ru.roman.pammcontr.service.config;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.exolab.castor.mapping.Mapping;
-import ru.roman.pammcontr.gui.pane.settings.SettingsViewModel;
+import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.service.ServiceFactory;
 import ru.roman.pammcontr.service.config.reader.CastorReader;
 import ru.roman.pammcontr.service.config.writer.CastorWriter;
@@ -49,11 +49,11 @@ public class CastorConfigServiceImpl implements ConfigService {
     }
 
 
-    public static SettingsViewModel settingsModel;
+    public static UserSettingsModel settingsModel;
     @Override
-    public synchronized SettingsViewModel loadSettingsConfig() {
+    public synchronized UserSettingsModel loadSettingsConfig() {
         if (settingsModel == null) {
-            settingsModel = loadEncryptedConfig(SETTINGS_FILE_NAME, SettingsViewModel.class);
+            settingsModel = loadConfig(SETTINGS_FILE_NAME, UserSettingsModel.class);
             if (settingsModel != null) {
                 log.info("Settings loaded from config file");
             }
@@ -62,8 +62,8 @@ public class CastorConfigServiceImpl implements ConfigService {
     }
 
     @Override
-    public synchronized void saveSettingsConfig(SettingsViewModel model) {
-        saveEncryptedConfig(model, SETTINGS_FILE_NAME);
+    public synchronized void saveSettingsConfig(UserSettingsModel model) {
+        saveConfig(model, SETTINGS_FILE_NAME);
         settingsModel = model;
         log.info("Settings saved to config file");
     }

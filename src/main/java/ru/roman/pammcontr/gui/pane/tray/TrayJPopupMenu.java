@@ -24,8 +24,6 @@ public class TrayJPopupMenu extends JPopupMenu {
         final JMenuItem infoItem = new JMenuItem();
         infoItem.setEnabled(false);
         cbDisabled = new JCheckBoxMenuItem("Disabled   Alt+D");
-        final JMenuItem editMenu = new JMenuItem("Edit");
-        final JMenuItem settingsMenu = new JMenuItem("Settings");
         final JMenuItem exitItem = new JMenuItem("Exit");
 
         //Add components to pop-up menu
@@ -34,8 +32,6 @@ public class TrayJPopupMenu extends JPopupMenu {
         addSeparator();
         add(cbDisabled);
         addSeparator();
-        add(editMenu);
-        add(settingsMenu);
         add(exitItem);
 
         aboutItem.addActionListener(new ActionListener() {
@@ -51,16 +47,6 @@ public class TrayJPopupMenu extends JPopupMenu {
         cbDisabled.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 controller.onStateChanged(e);
-            }
-        });
-        editMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                controller.onShowEdit();
-            }
-        });
-        settingsMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                controller.onShowSettings();
             }
         });
         exitItem.addActionListener(new ActionListener() {

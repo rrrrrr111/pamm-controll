@@ -8,9 +8,8 @@ import ru.roman.pammcontr.gui.common.cbchain.CallBackChain;
 import ru.roman.pammcontr.gui.common.mvc.Controller;
 import ru.roman.pammcontr.gui.custom.tools.OpacityTimer;
 import ru.roman.pammcontr.gui.custom.widget.TransparentWindowSupport;
-import ru.roman.pammcontr.gui.pane.PaineFactory;
-import ru.roman.pammcontr.gui.pane.settings.SettingsViewModel;
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
+import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.service.ServiceFactory;
 import ru.roman.pammcontr.service.cache.LocalCache;
 import ru.roman.pammcontr.service.cache.LocalCacheFactory;
@@ -48,7 +47,7 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
 
         state = State.SCHEDULED;
         TrayUtils.addTrayIcon();
-        final SettingsViewModel sett = configService.loadSettingsConfig();
+        final UserSettingsModel sett = configService.loadSettingsConfig();
         localCache = LocalCacheFactory.createLocalCacheInstance(sett.getCurrentNum(), sett.getRecordsCount());
         currModel = localCache.getCurrentSync();
         view.fillWidgets(currModel);
@@ -61,10 +60,6 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
         //log.info("rating changed to " + rating);
         currModel.setRating(rating.longValue());
 
-    }
-
-    public void onEdit() {
-        throw new UnsupportedOperationException();
     }
 
     protected void onPrev() {

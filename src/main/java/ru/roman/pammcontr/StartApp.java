@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import ru.roman.pammcontr.gui.common.cbchain.CallBackChain;
 import ru.roman.pammcontr.gui.pane.PaineFactory;
 import ru.roman.pammcontr.gui.pane.settings.Settings;
-import ru.roman.pammcontr.gui.pane.settings.SettingsViewController;
+
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
 import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.service.lock.LockerUtils;
@@ -22,24 +22,23 @@ import java.io.IOException;
 /** @author Roman 17.12.12 23:44 */
 public class StartApp {
     private static final Log log = LogFactory.getLog(StartApp.class);
-    private static SettingsViewController settingsController;
 
     public static void main(String args[]) {
         GuiUtil.startSwingApp(new CallBackChain<Void>() {
             @Override
             protected void onSuccess(Void result) {
-                settingsController = PaineFactory.getSettingsViewController();
                 prepareEnvironment();
-                prepareCredentials(new CallBackChain<UserSettingsModel>() {
+                prepareSettings(new CallBackChain<UserSettingsModel>() {
                     @Override
                     public void onSuccess(UserSettingsModel sett) {
                         PaineFactory.createMainView();
                         LockerUtils.tryLockApplication();
                     }
+
                     @Override
                     protected void onFailure(Exception e) {
                         ExceptionHandler.showErrorMessage(e);
-                        prepareCredentials(this);
+                        prepareSettings(this);
                     }
                 });
             }
@@ -49,7 +48,6 @@ public class StartApp {
     public static void stop(int exitCode) {
         try {
             TrayUtils.removeTrayIcon();
-            settingsController.saveConfig();
             log.info(Const.APP_NAME + " closed");
         } catch (Exception ex){
             log.info("Error while closing", ex);
@@ -69,11 +67,9 @@ public class StartApp {
         }
     }
 
-    private static void prepareCredentials(CallBackChain<UserSettingsModel> callBack) {
+    private static void prepareSettings(CallBackChain<UserSettingsModel> callBack) {
         if (Settings.get() == null) {
-            settingsController.fillCredentials(callBack);
-        } else {
-            settingsController.reloadSettings(callBack);
+            Settings.createInitialSettings();
         }
     }
 }

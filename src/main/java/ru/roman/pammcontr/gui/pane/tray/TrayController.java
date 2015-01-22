@@ -54,15 +54,6 @@ public class TrayController {
         }
     }
 
-    public void onShowEdit() {
-        PaineFactory.getMainViewController().onEdit();
-    }
-
-
-    public void onShowSettings() {
-        PaineFactory.getSettingsViewController().showSettingsView();
-    }
-
     public void onExit() {
         StartApp.stop(0);
     }

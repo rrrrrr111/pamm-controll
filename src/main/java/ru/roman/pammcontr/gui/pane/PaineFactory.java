@@ -3,8 +3,8 @@ package ru.roman.pammcontr.gui.pane;
 
 import ru.roman.pammcontr.gui.pane.main.MainView;
 import ru.roman.pammcontr.gui.pane.main.MainViewController;
-import ru.roman.pammcontr.gui.pane.settings.SettingsView;
-import ru.roman.pammcontr.gui.pane.settings.SettingsViewController;
+
+
 
 /**
  *
@@ -14,7 +14,6 @@ import ru.roman.pammcontr.gui.pane.settings.SettingsViewController;
 public class PaineFactory {
 
     private static MainView mainView;
-    private static SettingsView settingsView;
 
     public static MainView createMainView() {
         if (mainView == null) {
@@ -28,14 +27,6 @@ public class PaineFactory {
     }
 
 
-    public static SettingsView createSettingsView() {
-        if (settingsView == null) {
-            PaineFactory.settingsView = new SettingsView();
-        }
-        return settingsView;
-    }
 
-    public static SettingsViewController getSettingsViewController() {
-        return createSettingsView().getController();
-    }
+
 }
