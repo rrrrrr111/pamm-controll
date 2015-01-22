@@ -6,8 +6,6 @@ import ru.roman.pammcontr.gui.common.mvc.View;
 import ru.roman.pammcontr.gui.custom.widget.LoadingPanel;
 import ru.roman.pammcontr.gui.custom.widget.TiedCheckBoxPanel;
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
-import ru.roman.pammcontr.model.Lang;
-import ru.roman.pammcontr.model.WordType;
 import ru.roman.pammcontr.util.GuiUtil;
 
 import javax.swing.*;
@@ -249,11 +247,10 @@ public class MainView extends JWindow implements View<MainViewModel, MainView, M
     @Override
     public void fillWidgets(MainViewModel model) {
         setText(model.getTextFaced());
-        typeLabel.setText(WordType.valueOf(model.getType()).toString());
+        typeLabel.setText("заглушка");
         setRating(model.getRating().intValue());
 
-        titledEmptyBorder.setTitle(String.format("%s-%s", Lang.valueOf(model.getFacedLangId()).getReductionLower(),
-                        Lang.valueOf(model.getShadowedLangId()).getReductionLower()));
+        titledEmptyBorder.setTitle(String.format("%s", "заглушка"));
     }
 
     @Override

@@ -2,7 +2,7 @@ package ru.roman.pammcontr.service.lock;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.roman.pammcontr.StartBim;
+import ru.roman.pammcontr.StartApp;
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
 import ru.roman.pammcontr.util.Const;
 
@@ -27,7 +27,7 @@ public abstract class LockerUtils {
             final Timer timer = new Timer(3000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    StartBim.stop(-2);
+                    StartApp.stop(-2);
                 }
             });
             timer.setRepeats(false);

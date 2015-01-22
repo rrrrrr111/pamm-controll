@@ -4,7 +4,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.roman.pammcontr.model.Lang;
 import ru.roman.pammcontr.service.ServiceFactory;
 import ru.roman.pammcontr.service.http.HttpClientService;
 import ru.roman.pammcontr.service.translate.dto.YandexWordTranslation;
@@ -37,20 +36,8 @@ public class GoogleService implements TranslationService{
 
         final Map<String, String> params = new HashMap<String, String>();
         params.put("client", "t");
-        params.put("sl", Lang.valueOf(wordLandId).getReductionLower());
-        params.put("tl", Lang.valueOf(targetLandId).getReductionLower());
-        params.put("hl", Lang.valueOf(targetLandId).getReductionLower());
-        params.put("sc", "2");
-        params.put("ie", "UTF-8");
         params.put("oe", "UTF-8");
         params.put("pc", "1");
-        params.put("oc", "1");
-        params.put("otf", "2");
-        params.put("trs", "1");
-        params.put("inputm", "1");
-        params.put("srcrom", "1");
-        params.put("ssel", "3");
-        params.put("tsel", "6");
         params.put("q", word);
 
         final String result = httpClient.executeGet(TRANSLATE_GOOGLE, TRANSLATE_GOOGLE_PATH, params);

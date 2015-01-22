@@ -9,7 +9,7 @@ import ru.roman.pammcontr.gui.pane.PaineFactory;
 import ru.roman.pammcontr.gui.pane.settings.Settings;
 import ru.roman.pammcontr.gui.pane.settings.SettingsViewController;
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
-import ru.roman.pammcontr.service.gae.wsclient.UserSettingsModel;
+import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.service.lock.LockerUtils;
 import ru.roman.pammcontr.util.Const;
 import ru.roman.pammcontr.util.ExceptionHandler;
@@ -20,8 +20,8 @@ import java.io.IOException;
 
 
 /** @author Roman 17.12.12 23:44 */
-public class StartBim {
-    private static final Log log = LogFactory.getLog(StartBim.class);
+public class StartApp {
+    private static final Log log = LogFactory.getLog(StartApp.class);
     private static SettingsViewController settingsController;
 
     public static void main(String args[]) {

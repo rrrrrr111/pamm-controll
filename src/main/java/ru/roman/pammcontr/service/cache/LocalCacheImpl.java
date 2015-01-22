@@ -7,10 +7,9 @@ import ru.roman.pammcontr.gui.pane.main.MainViewModel;
 import ru.roman.pammcontr.gui.pane.settings.Settings;
 import ru.roman.pammcontr.gui.pane.settings.SettingsViewModel;
 import ru.roman.pammcontr.service.ServiceFactory;
-import ru.roman.pammcontr.service.gae.GaeConnector;
-import ru.roman.pammcontr.service.gae.wsclient.BimItemModel;
-import ru.roman.pammcontr.service.gae.wsclient.GetListRequest;
-import ru.roman.pammcontr.service.gae.wsclient.GetListResp;
+
+import ru.roman.pammcontr.model.BimItemModel;
+
 import ru.roman.pammcontr.util.BimException;
 import ru.roman.pammcontr.util.WsUtil;
 
@@ -24,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 public class LocalCacheImpl implements LocalCache {
     private static final Log log = LogFactory.getLog(LocalCacheImpl.class);
 
-    private GaeConnector gaeConnector = ServiceFactory.getGaeConnector();
 
     /* ��� */
     private final List<MainViewModel> cache;
@@ -139,40 +137,9 @@ public class LocalCacheImpl implements LocalCache {
             //  - ��� ������ ������� (��� ����)
             //  - ��� ����������� ������� ����� currentNum == 0
 
-            final GetListRequest req = WsUtil.prepareRequest(new GetListRequest());
-            req.setOffset(newOffset[0]);
-            req.setCount(cacheMaxSize);
-            req.setSortingField(sett.getSortingField());
-            req.setSortingDirection(sett.getSortingDirection());
-            req.getRatingsList().addAll(sett.getRatings());
-            req.getTypes().addAll(sett.getTypes());
-            req.getCategories().addAll(sett.getCategories());
-            req.setFacedLangId(sett.getFacedLangId().intValue());
-            req.setShadowedLangId(sett.getShadowedLangId().intValue());
 
-            gaeConnector.getList(req, new GaeConnector.GaeCallBack<GetListResp>() {
-                @Override
-                protected void onSuccess(GetListResp resp) {
-                    if (resp.getList() == null || resp.getList().size() == 0) {
-                        if (currentNum == 0) {
-                            throw new BimException("Words have not found in dictionary");
-                        } else {
-                            currentNum = 0;
-                            checkCacheState(callBack);
-                        }
-                    }
-                    cache.clear();
-                    cache.addAll(toModels(resp.getList()));
-                    recordsCount = resp.getRecordsCount();
-                    currentOffset = newOffset[0];
-                    callBack.run(getFromCache(currentNum));
-                }
 
-                @Override
-                protected void onFailure(Exception e) {
-                    callBack.exception(e);
-                }
-            });
+
         } else {
             callBack.run(getFromCache(currentNum));
         }

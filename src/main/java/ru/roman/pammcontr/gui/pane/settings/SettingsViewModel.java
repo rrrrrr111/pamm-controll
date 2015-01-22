@@ -1,7 +1,7 @@
 package ru.roman.pammcontr.gui.pane.settings;
 
 import ru.roman.pammcontr.gui.common.mvc.Model;
-import ru.roman.pammcontr.service.gae.wsclient.UserSettingsModel;
+import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.util.PropUtil;
 
 /** @author Roman 16.01.13 23:59 */

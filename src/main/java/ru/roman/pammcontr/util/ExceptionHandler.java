@@ -5,7 +5,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.roman.pammcontr.StartBim;
+import ru.roman.pammcontr.StartApp;
 import ru.roman.pammcontr.gui.common.validator.BimValidationException;
 
 import javax.swing.*;
@@ -26,7 +26,7 @@ public class ExceptionHandler {
 
     public static void showErrorMessageAndExit(Throwable t){
         showErrorMessage(t);
-        StartBim.stop(1);
+        StartApp.stop(1);
     }
 
     public static void showErrorMessage(Throwable t){

@@ -2,7 +2,7 @@ package ru.roman.pammcontr.gui.pane.main;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import ru.roman.pammcontr.gui.common.mvc.Model;
-import ru.roman.pammcontr.service.gae.wsclient.BimItemModel;
+import ru.roman.pammcontr.model.BimItemModel;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 

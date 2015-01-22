@@ -15,7 +15,6 @@ import ru.roman.pammcontr.service.ServiceFactory;
 import ru.roman.pammcontr.service.cache.LocalCache;
 import ru.roman.pammcontr.service.cache.LocalCacheFactory;
 import ru.roman.pammcontr.service.config.ConfigService;
-import ru.roman.pammcontr.service.gae.GaeConnector;
 import ru.roman.pammcontr.service.ghost.GhostController;
 import ru.roman.pammcontr.service.ghost.GhostService;
 import ru.roman.pammcontr.service.ghost.GhostServiceImpl;
@@ -25,7 +24,7 @@ import ru.roman.pammcontr.service.translate.TranslationService;
 public class MainViewController extends Controller<MainView, MainViewModel> implements GhostController {
     private static final Log log = LogFactory.getLog(MainViewController.class);
 
-    private final GaeConnector gaeConnector = ServiceFactory.getGaeConnector();
+
     private final ConfigService configService = ServiceFactory.getConfigService();
     private LocalCache localCache;
     private final OpacityTimer opacityTimer;
@@ -61,11 +60,11 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
     protected void onRatingChange(Integer rating) {
         //log.info("rating changed to " + rating);
         currModel.setRating(rating.longValue());
-        gaeConnector.renewRating(currModel.getId(), rating);
+
     }
 
     public void onEdit() {
-        PaineFactory.getEditViewController().show(localCache);
+        throw new UnsupportedOperationException();
     }
 
     protected void onPrev() {

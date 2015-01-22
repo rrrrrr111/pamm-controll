@@ -2,7 +2,7 @@ package ru.roman.pammcontr.service.config;
 
 import org.exolab.castor.mapping.FieldHandler;
 import org.exolab.castor.mapping.ValidityException;
-import ru.roman.pammcontr.service.gae.wsclient.UserSettingsModel;
+import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.util.WsUtil;
 
 import java.util.Date;

@@ -6,7 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import ru.roman.pammcontr.gui.common.mvc.View;
 import ru.roman.pammcontr.gui.common.validator.BimValidationException;
 import ru.roman.pammcontr.gui.custom.widget.SimpleCheckBoxPanel;
-import ru.roman.pammcontr.service.file.subtitlesmerge.SubtitlesMergeService;
+
 import ru.roman.pammcontr.util.Const;
 import ru.roman.pammcontr.util.GuiUtil;
 
@@ -308,7 +308,8 @@ public class SettingsView extends JFrame implements View<SettingsViewModel, Sett
                 broseWordListButton.setAction(new AbstractAction() {//������ ����� ������ ����� ���������� ������ ������
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        controller.onBroseExcelFileForLoading();
+
+                        throw new UnsupportedOperationException();
                     }
                 });
                 broseWordListButton.setText("brose...");
@@ -403,8 +404,6 @@ public class SettingsView extends JFrame implements View<SettingsViewModel, Sett
                 list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
                 list.setLayoutOrientation(JList.VERTICAL);
                 DefaultListModel listModel = new DefaultListModel();
-                listModel.addElement(SubtitlesMergeService.SRT_FORMAT);
-                listModel.addElement(SubtitlesMergeService.HTML_FORMAT);
                 list.setModel(listModel);
                 final JScrollPane listScroll = new JScrollPane(list);
                 listScroll.setPreferredSize(new Dimension(80, 8));
@@ -430,7 +429,7 @@ public class SettingsView extends JFrame implements View<SettingsViewModel, Sett
                 subtitlesMergeButton.setAction(new AbstractAction() {//������ ����� ������ ����� ���������� ������ ������
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        controller.startMergeSrt(list.getSelectedValuesList());
+                        throw new UnsupportedOperationException();
                     }
                 });
                 subtitlesMergeButton.setText("brose...");
@@ -478,7 +477,7 @@ public class SettingsView extends JFrame implements View<SettingsViewModel, Sett
                 textUploadButton.setAction(new AbstractAction() {//������ ����� ������ ����� ���������� ������ ������
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        controller.onBroseTextFileForUploading();
+                        throw new UnsupportedOperationException();
                     }
                 });
                 textUploadButton.setText("brose...");

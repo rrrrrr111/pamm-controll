@@ -2,18 +2,15 @@ package ru.roman.pammcontr.gui.pane.settings;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.roman.pammcontr.StartBim;
+import ru.roman.pammcontr.StartApp;
 import ru.roman.pammcontr.gui.common.cbchain.CallBackChain;
 import ru.roman.pammcontr.gui.common.mvc.Controller;
 import ru.roman.pammcontr.gui.pane.PaineFactory;
 import ru.roman.pammcontr.service.ServiceFactory;
 import ru.roman.pammcontr.service.cache.LocalCache;
 import ru.roman.pammcontr.service.config.ConfigService;
-import ru.roman.pammcontr.service.file.subtitlesmerge.SubtitlesMergeService;
-import ru.roman.pammcontr.service.file.textupload.TextUploadService;
-import ru.roman.pammcontr.service.file.wordload.WordLoaderService;
-import ru.roman.pammcontr.service.gae.GaeConnector;
-import ru.roman.pammcontr.service.gae.wsclient.UserSettingsModel;
+
+import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.util.BimException;
 import ru.roman.pammcontr.util.GuiUtil;
 
@@ -28,12 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class SettingsViewController extends Controller<SettingsView, SettingsViewModel> {
     private static final Log log = LogFactory.getLog(SettingsViewController.class);
 
-    private final WordLoaderService wordLoaderService = ServiceFactory.getWordLoaderService();
-    private final GaeConnector gaeConnector = ServiceFactory.getGaeConnector();
+
     private final SettingsViewValidator validator = new SettingsViewValidator();
     private final ConfigService configService = ServiceFactory.getConfigService();
-    private final SubtitlesMergeService subtitlesMergeService = ServiceFactory.getSubtitlesMergeService();
-    private final TextUploadService textUploadService = ServiceFactory.getTextUploadService();
 
     private State state = State.REGISTERED;
     private CallBackChain<UserSettingsModel> callBack;
@@ -62,21 +56,7 @@ public class SettingsViewController extends Controller<SettingsView, SettingsVie
     }
 
     public void reloadSettings(final CallBackChain<UserSettingsModel> callBack) {
-        final SettingsViewModel config = configService.loadSettingsConfig();
-        gaeConnector.registerNewAndLoadSettings(config, new GaeConnector.GaeCallBack<UserSettingsModel>() {
-            @Override
-            public void onSuccess(UserSettingsModel result) {
-                currModel = new SettingsViewModel(result);
-                configService.saveSettingsConfig(currModel);
-                callBack.run(result);
-            }
-            @Override
-            public void onFailure(Exception e) {
-                log.error("Error while settings loading", e);
-                currModel = config;
-                fillCredentials(callBack);
-            }
-        });
+
     }
 
     public void showSettingsView() {
@@ -107,18 +87,7 @@ public class SettingsViewController extends Controller<SettingsView, SettingsVie
                     // ��� ����������� ����� ������ �� ����������,
                     // ����� �������� ���������� ������ ���� ��������� ���������
                     final CountDownLatch signal = new CountDownLatch(1);
-                    gaeConnector.registerNewAndLoadSettings(param, new GaeConnector.GaeCallBack<UserSettingsModel>() {
-                        @Override
-                        protected void onSuccess(UserSettingsModel result) {
-                            currModel = new SettingsViewModel(result);
-                            signal.countDown();
-                        }
-                        @Override
-                        protected void onFailure(Exception e) {
-                            signal.countDown();
-                            callBack.exception(e);
-                        }
-                    });
+
                     if (!signal.await(5, TimeUnit.MINUTES)) {
                         throw new BimException("Illegal state of synchronously invocation, CountDownLatch" +
                                 " waits more then 5 minutes");
@@ -170,7 +139,7 @@ public class SettingsViewController extends Controller<SettingsView, SettingsVie
         //model.setSortingField(Const.DEFAULT_SORTING_FIELD);
         //model.getRatings().addAll(ratingsPanel.getRatings());
 
-        gaeConnector.storeSettings(currModel);
+
     }
 
 
@@ -185,16 +154,14 @@ public class SettingsViewController extends Controller<SettingsView, SettingsVie
 
     public void onCancel() {
         if (state == State.FIRST_INPUT) {
-            StartBim.stop(0);
+            StartApp.stop(0);
         } else {
             view.setVisible(false);
         }
     }
 
 
-    public void onBroseExcelFileForLoading() {
-        wordLoaderService.uploadFile();
-    }
+
 
     public SettingsViewValidator getValidator() {
         return validator;
@@ -204,11 +171,4 @@ public class SettingsViewController extends Controller<SettingsView, SettingsVie
         view.selectTab(tabNum);
     }
 
-    public void startMergeSrt(List<String> formatsList) {
-        subtitlesMergeService.startMerge(formatsList);
-    }
-
-    public void onBroseTextFileForUploading() {
-        textUploadService.startUpload();
-    }
 }

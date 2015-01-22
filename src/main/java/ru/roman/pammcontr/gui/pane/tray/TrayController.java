@@ -2,7 +2,7 @@ package ru.roman.pammcontr.gui.pane.tray;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.roman.pammcontr.StartBim;
+import ru.roman.pammcontr.StartApp;
 import ru.roman.pammcontr.gui.pane.PaineFactory;
 import ru.roman.pammcontr.gui.pane.main.State;
 import ru.roman.pammcontr.gui.pane.settings.Settings;
@@ -64,7 +64,7 @@ public class TrayController {
     }
 
     public void onExit() {
-        StartBim.stop(0);
+        StartApp.stop(0);
     }
 
     public void onShowQuickly() {

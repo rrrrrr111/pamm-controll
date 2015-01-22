@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ru.roman.pammcontr.model.Lang;
 import ru.roman.pammcontr.service.ServiceFactory;
 import ru.roman.pammcontr.service.http.HttpClientService;
 import ru.roman.pammcontr.service.translate.dto.YandexWordTranslation;
@@ -52,7 +51,6 @@ public class YandexService implements TranslationService{
 
 
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("lang", createLangParamValue(wordLandId, targetLandId));
         params.put("text", word);
         params.put("srv", "tr-text");
 
@@ -65,7 +63,6 @@ public class YandexService implements TranslationService{
         //http://translate.yandex.net/dicservice.json/lookup?lang=ru-en&text=������
 
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("lang", createLangParamValue(wordLandId, targetLandId));
         params.put("text", word);
 
         final String gsonRes = httpClient.executeGet(TRANSLATE_YANDEX_NET, TRANSLATE_YANDEX_NET_PATH, params);
@@ -73,7 +70,4 @@ public class YandexService implements TranslationService{
         return res.toUserString();
     }
 
-    private String createLangParamValue(Long wordLandId, Long targetLandId) {
-        return Lang.valueOf(wordLandId).getReductionLower() + "-" + Lang.valueOf(targetLandId).getReductionLower();
-    }
 }

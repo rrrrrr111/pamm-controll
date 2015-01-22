@@ -2,8 +2,6 @@ package ru.roman.pammcontr.util;
 
 import ru.roman.pammcontr.gui.pane.settings.Settings;
 import ru.roman.pammcontr.gui.pane.settings.SettingsViewModel;
-import ru.roman.pammcontr.service.gae.wsclient.AbstractRequest;
-import ru.roman.pammcontr.service.gae.wsclient.RequestInfo;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -65,25 +63,5 @@ public abstract class WsUtil {
         } else {
             return xgc.toGregorianCalendar().getTime();
         }
-    }
-
-    public static <T extends AbstractRequest> T prepareRequest(T req) {
-        final RequestInfo requestInfo = new RequestInfo();
-        final SettingsViewModel sett = Settings.get();
-        if (sett == null) {
-            requestInfo.setUserId(-1L);
-            requestInfo.setPassHash(null);
-        } else {
-            requestInfo.setUserId(sett.getId());
-            requestInfo.setPassHash(sett.getPassword());
-        }
-        requestInfo.setVersion(Const.VERSION);
-        try {
-            requestInfo.setIp(InetAddress.getLocalHost().toString());
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
-        }
-        req.setRequestInfo(requestInfo);
-        return req;
     }
 }

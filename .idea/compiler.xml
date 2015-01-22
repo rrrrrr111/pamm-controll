@@ -25,5 +25,8 @@
         <module name="pamm-controll" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pamm-controll" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
