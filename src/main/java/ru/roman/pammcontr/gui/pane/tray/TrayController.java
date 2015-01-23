@@ -42,7 +42,7 @@ public class TrayController {
         if (cb1Id == ItemEvent.SELECTED){
             PaineFactory.getMainViewController().changeState(State.DISABLED);
             disabilityTicker.setInitialDelay(
-                    GhostServiceImpl.toMilliSec(Settings.get().getDisabilityDuration())
+                    GhostServiceImpl.minutesToMilliSec(Settings.get().getDisabilityDuration())
             );
             disabilityTicker.restart();
         } else {

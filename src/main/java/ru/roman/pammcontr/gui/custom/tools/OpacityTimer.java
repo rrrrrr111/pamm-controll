@@ -14,26 +14,27 @@ public class OpacityTimer extends Timer {
 
     private static final float START_OPACITY = 0;
     private static final float OPACITY_STEP = 0.05f;
-    private static final float FINAL_OPACITY = 0.75f;
 
     private float opacity;
     private float step;
     private final Window pane;
+    private final float finalOpacity;
 
 
-    public OpacityTimer(final Window frame) {
+    public OpacityTimer(final Window frame, float finalOpacity) {
         super(100, null);
         this.pane = frame;
+        this.finalOpacity = finalOpacity;
         setRepeats(true);
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (pane.isVisible()) {
                     opacity = opacity + step;
-                    if (opacity > FINAL_OPACITY || opacity < START_OPACITY) {
+                    if (opacity > finalOpacity || opacity < START_OPACITY) {
                         stop();
                     }
-                    opacity = opacity > FINAL_OPACITY ? FINAL_OPACITY : opacity;
+                    opacity = opacity > finalOpacity ? finalOpacity : opacity;
                     opacity = opacity < START_OPACITY ? START_OPACITY : opacity;
                     pane.setOpacity(opacity);
                 } else {
@@ -59,12 +60,12 @@ public class OpacityTimer extends Timer {
     }
 
     public void showQuickly() {
-        step = FINAL_OPACITY;
+        step = finalOpacity;
         restart();
     }
 
     public void hideQuickly() {
-        step = -FINAL_OPACITY;
+        step = -finalOpacity;
         restart();
     }
 }

@@ -15,7 +15,7 @@ public class UserSettingsModel {
     protected Date lastCheckDate;
     protected XMLGregorianCalendar settingsEditDate;
     protected String lookAndFeel;
-    protected Double opacity;
+    protected Float opacity;
     protected Double previewDuration;
     protected Double disabilityDuration;
     protected List<PammInfo> pammInfoList;
@@ -79,11 +79,11 @@ public class UserSettingsModel {
         this.lookAndFeel = lookAndFeel;
     }
 
-    public Double getOpacity() {
+    public Float getOpacity() {
         return opacity;
     }
 
-    public void setOpacity(Double opacity) {
+    public void setOpacity(Float opacity) {
         this.opacity = opacity;
     }
 

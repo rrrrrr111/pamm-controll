@@ -28,9 +28,9 @@ public class GhostServiceImpl implements GhostService {
 
     public GhostServiceImpl(GhostController ctrl) {
         this.controller = ctrl;
-        mainInterval = toMilliSec(Settings.get().getCheckFastPammInterval());
+        mainInterval = minutesToMilliSec(Settings.get().getCheckFastPammInterval());
         thirstDelay = (Const.DEV_MODE ? 1000 : mainInterval);
-        showInterval = toMilliSec(Settings.get().getPreviewDuration());
+        showInterval = minutesToMilliSec(Settings.get().getPreviewDuration());
 
         mainTicker = new Timer(mainInterval, new ActionListener() {
             @Override
@@ -62,6 +62,8 @@ public class GhostServiceImpl implements GhostService {
         unfreezeTicker.setRepeats(false);
 
         loadTimers();
+        log.info(String.format("Timers initialised, main interval %s ms,  preview duration : %s ms, first delay : %s ms",
+                mainInterval, showInterval, thirstDelay));
     }
 
     private void loadTimers() {
@@ -96,7 +98,7 @@ public class GhostServiceImpl implements GhostService {
     }
 
 
-    public static int toMilliSec(Double inMin) {
+    public static int minutesToMilliSec(Double inMin) {
         if (inMin == null || (inMin > (Integer.MAX_VALUE / MILLISEC_IN_MIN)) || inMin < 0.05d) {
             throw new AppException("Wrong value for conversion Min to Milliseconds : " + inMin);
         }

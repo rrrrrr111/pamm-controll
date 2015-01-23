@@ -8,6 +8,7 @@ import ru.roman.pammcontr.gui.common.cbchain.CallBackChain;
 import ru.roman.pammcontr.gui.common.mvc.Controller;
 import ru.roman.pammcontr.gui.custom.tools.OpacityTimer;
 import ru.roman.pammcontr.gui.custom.widget.TransparentWindowSupport;
+import ru.roman.pammcontr.gui.pane.settings.Settings;
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
 import ru.roman.pammcontr.model.UserSettingsModel;
 import ru.roman.pammcontr.service.ServiceFactory;
@@ -22,8 +23,6 @@ import ru.roman.pammcontr.service.translate.TranslationService;
 public class MainViewController extends Controller<MainView, MainViewModel> implements GhostController {
     private static final Log log = LogFactory.getLog(MainViewController.class);
 
-
-    private final ConfigService configService = ServiceFactory.getConfigService();
     private final OpacityTimer opacityTimer;
     private final GhostService ghostService;
     private final TranslationService yaTranslator = ServiceFactory.getYandexService();
@@ -37,7 +36,7 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
 
     public MainViewController(MainView view) {
         super(view);
-        opacityTimer = new OpacityTimer(view);
+        opacityTimer = new OpacityTimer(view, Settings.get().getOpacity());
         ghostService = new GhostServiceImpl(this);
     }
 
@@ -45,7 +44,6 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
 
         state = State.SCHEDULED;
         TrayUtils.addTrayIcon();
-        final UserSettingsModel sett = configService.loadSettingsConfig();
         currModel = new MainViewModel(); // TODO
         view.fillWidgets(currModel);
         ghostService.start();
@@ -53,11 +51,12 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
     }
 
     protected void onPrev() {
-        throw new UnsupportedOperationException();
     }
 
     protected void onNext(CallBackChain<MainViewModel> nextCallBack) {
-        //throw new UnsupportedOperationException();
+        if (nextCallBack != null) {
+            nextCallBack.run(currModel);
+        }
     }
 
 

@@ -73,7 +73,7 @@
         <field name="lookAndFeel" type="string">
             <bind-xml name="lookAndFeel" node="element"/>
         </field>
-        <field name="opacity" type="double">
+        <field name="opacity" type="float">
             <bind-xml name="opacity" node="element"/>
         </field>
         <field name="previewDuration" type="double">
