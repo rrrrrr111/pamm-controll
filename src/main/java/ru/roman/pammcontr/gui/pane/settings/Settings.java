@@ -24,22 +24,22 @@ public class Settings {
         sett.setFastPammUrl("http://fastpamm.com/");
         sett.setLastCheckDate(null);
         sett.setLookAndFeel("");
-        sett.setMinimalPercentLevelToControl(Double.valueOf(-1));
-        sett.setOpacity(0.5f);
+        sett.setMinimalPercentLevelToControl((double) -1);
+        sett.setOpacity(0.75f);
         sett.setSettingsEditDate(WsUtil.getCurrGregorian());
         final List<PammInfo> pammInfos = new ArrayList<>();
         sett.setPammInfoList(pammInfos);
-        pammInfos.add(new PammInfo("Ahmedos", 558616L, 1.0, false));
-        pammInfos.add(new PammInfo("sean", 561368L, 1.0, false));
-        pammInfos.add(new PammInfo("votfx", 520050L, 1.0, false));
+        pammInfos.add(new PammInfo("Ahmedos", 558616L, 0.0, false));
+        pammInfos.add(new PammInfo("sean", 561368L, 0.0, false));
+        pammInfos.add(new PammInfo("votfx", 520050L, 0.0, false));
         if (Const.DEV_MODE) {
             sett.setCheckFastPammInterval(0.25);       // in minutes
             sett.setPreviewDuration(0.05);             // in minutes
-            sett.setDisabilityDuration(Double.valueOf(5));      // in minutes
+            sett.setDisabilityDuration((double) 5);      // in minutes
         } else {
             sett.setCheckFastPammInterval((double) 10);
             sett.setPreviewDuration(0.1);
-            sett.setDisabilityDuration(Double.valueOf(60));
+            sett.setDisabilityDuration((double) 60);
         }
 
         ServiceFactory.getConfigService().saveSettingsConfig(sett);

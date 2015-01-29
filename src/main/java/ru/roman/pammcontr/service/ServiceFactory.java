@@ -18,7 +18,6 @@ import ru.roman.pammcontr.util.Const;
 public class ServiceFactory {
 
     private static volatile HttpClientService httpClientInstance;
-    private static volatile TranslationService yandexService;
     private static volatile TranslationService googleService;
     private static volatile XmlConfigService xmlConfigService;
     private static volatile ConfigService configService;
@@ -29,13 +28,6 @@ public class ServiceFactory {
             httpClientInstance = new HttpClientServiceImpl();
         }
         return httpClientInstance;
-    }
-
-    public static synchronized TranslationService getYandexService() {
-        if (yandexService == null) {
-            yandexService = new YandexService();
-        }
-        return yandexService;
     }
 
     public static synchronized TranslationService getGoogleService() {

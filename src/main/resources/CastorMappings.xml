@@ -3,53 +3,20 @@
         "http://castor.org/mapping.dtd">
 <mapping>
     <description></description>
-    <class name="ru.roman.pammcontr.gui.pane.main.MainViewModel">
-        <map-to xml="MainViewModel"/>
-        <field name="id" type="long">
-            <bind-xml name="id" node="element"/>
-        </field>
-        <field name="facedLangId" type="long">
-            <bind-xml name="facedLangId" node="element"/>
-        </field>
-        <field name="modelNum" type="long">
-            <bind-xml name="modelNum" node="element"/>
-        </field>
-        <field name="category" type="long">
-            <bind-xml name="category" node="element"/>
-        </field>
-        <field name="owner" type="long">
-            <bind-xml name="owner" node="element"/>
-        </field>
-        <field name="rating" type="long">
-            <bind-xml name="rating" node="element"/>
-        </field>
-        <field name="shadowedLangId" type="long">
-            <bind-xml name="shadowedLangId" node="element"/>
-        </field>
-        <field name="textFaced" type="string">
-            <bind-xml name="textFaced" node="element"/>
-        </field>
-        <field name="textShadowed" type="string">
-            <bind-xml name="textShadowed" node="element"/>
-        </field>
-        <field name="type" type="long">
-            <bind-xml name="type" node="element"/>
-        </field>
-    </class>
 
     <class name="ru.roman.pammcontr.model.PammInfo">
         <map-to xml="PammInfo"/>
         <field name="name" type="string">
-            <bind-xml name="name" node="element"/>
+            <bind-xml name="name" node="attribute"/>
         </field>
         <field name="num" type="long">
-            <bind-xml name="num" node="element"/>
+            <bind-xml name="num" node="attribute"/>
         </field>
         <field name="profitLossPercent" type="double">
-            <bind-xml name="profitLossPercent" node="element"/>
+            <bind-xml name="profitLossPercent" node="attribute"/>
         </field>
         <field name="flagToIgnoreDropDown" type="boolean">
-            <bind-xml name="flagToIgnoreDropDown" node="element"/>
+            <bind-xml name="flagToIgnoreDropDown" node="attribute"/>
         </field>
     </class>
 

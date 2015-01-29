@@ -8,7 +8,7 @@ public class PammInfo {
     protected String name;
     protected Long num;
     protected Double profitLossPercent;
-    protected boolean flagToIgnoreDropDown;
+    protected Boolean flagToIgnoreDropDown;
 
 
     public PammInfo() {
@@ -45,11 +45,11 @@ public class PammInfo {
         this.profitLossPercent = profitLossPercent;
     }
 
-    public boolean isFlagToIgnoreDropDown() {
+    public Boolean isFlagToIgnoreDropDown() {
         return flagToIgnoreDropDown;
     }
 
-    public void setFlagToIgnoreDropDown(boolean flagToIgnoreDropDown) {
+    public void setFlagToIgnoreDropDown(Boolean flagToIgnoreDropDown) {
         this.flagToIgnoreDropDown = flagToIgnoreDropDown;
     }
 }

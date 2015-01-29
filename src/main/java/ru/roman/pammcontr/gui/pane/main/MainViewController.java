@@ -2,99 +2,85 @@ package ru.roman.pammcontr.gui.pane.main;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ru.roman.pammcontr.gui.common.cbchain.CallBackChain;
+import ru.roman.pammcontr.gui.common.grid.ListTableModel;
 import ru.roman.pammcontr.gui.common.mvc.Controller;
 import ru.roman.pammcontr.gui.custom.tools.OpacityTimer;
 import ru.roman.pammcontr.gui.custom.widget.TransparentWindowSupport;
 import ru.roman.pammcontr.gui.pane.settings.Settings;
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
-import ru.roman.pammcontr.model.UserSettingsModel;
+import ru.roman.pammcontr.model.PammInfo;
 import ru.roman.pammcontr.service.ServiceFactory;
 
-import ru.roman.pammcontr.service.config.ConfigService;
 import ru.roman.pammcontr.service.ghost.GhostController;
 import ru.roman.pammcontr.service.ghost.GhostService;
 import ru.roman.pammcontr.service.ghost.GhostServiceImpl;
 import ru.roman.pammcontr.service.translate.TranslationService;
 
+import java.util.List;
+
 /** @author Roman 21.12.12 0:24 */
 public class MainViewController extends Controller<MainView, MainViewModel> implements GhostController {
+    private static FastDateFormat UPDATE_TIME_FORMAT = FastDateFormat.getInstance("hh:mm dd.MM.yy");
     private static final Log log = LogFactory.getLog(MainViewController.class);
 
     private final OpacityTimer opacityTimer;
     private final GhostService ghostService;
-    private final TranslationService yaTranslator = ServiceFactory.getYandexService();
     private final TranslationService gooTranslator = ServiceFactory.getGoogleService();
 
     private final TransparentWindowSupport supp = new TransparentWindowSupport();
 
     private volatile State state;
-    private static final String NO_TRANSLATION = "no translation";
 
 
     public MainViewController(MainView view) {
         super(view);
         opacityTimer = new OpacityTimer(view, Settings.get().getOpacity());
         ghostService = new GhostServiceImpl(this);
+        currModel = new MainViewModel();
     }
 
     public void onInit() {
-
         state = State.SCHEDULED;
         TrayUtils.addTrayIcon();
-        currModel = new MainViewModel(); // TODO
+
+        final ListTableModel<String> tm = currModel.getTableModel();
+
+        tm.setColumnInfo(new String[]{"Name/Num", "p/l", "ignore"});
+        for (PammInfo pi : Settings.get().getPammInfoList()) {
+            tm.getData().add(new String []{pi.getName() + "/" + pi.getNum(),
+                    pi.getProfitLossPercent().toString(),
+                    pi.isFlagToIgnoreDropDown().toString()
+            });
+        }
+        currModel.setBorderInfo("Updated on " + (Settings.get().getLastCheckDate() == null ? "..." : UPDATE_TIME_FORMAT.format(Settings.get().getLastCheckDate())));
+        currModel.setInfoText("");
+
         view.fillWidgets(currModel);
         ghostService.start();
-
     }
 
-    protected void onPrev() {
-    }
 
-    protected void onNext(CallBackChain<MainViewModel> nextCallBack) {
+
+    protected void onCheckPamm(CallBackChain<MainViewModel> nextCallBack) {
+
+
+
+
+
+
+
+
         if (nextCallBack != null) {
             nextCallBack.run(currModel);
         }
     }
 
-
-    protected void onTranslate() {
-        if (StringUtils.startsWith(currModel.getTextShadowed(), "_")) {
-
-            final StrBuilder translation = new StrBuilder();
-            final String gooTranslation = gooTranslator.translate(currModel.getTextFaced(),
-                    currModel.getFacedLangId(), currModel.getShadowedLangId());
-            if (checkForAdd(translation, gooTranslation, currModel)) {
-                translation.append(gooTranslation);
-            }
-            final String yaWordTranslation = yaTranslator.translateWord(currModel.getTextFaced(),
-                        currModel.getFacedLangId(), currModel.getShadowedLangId());
-            if (checkForAdd(translation, yaWordTranslation, currModel)) {
-                translation.append("\n\n").append(yaWordTranslation);
-            }
-            final String yaExprTranslation = yaTranslator.translateExpression(currModel.getTextFaced(),
-                            currModel.getFacedLangId(), currModel.getShadowedLangId());
-            if (checkForAdd(translation, yaExprTranslation, currModel)) {
-                translation.append("\n\n").append(yaExprTranslation);
-            }
-            if (StringUtils.isBlank(translation)) {
-                translation.append("NO TRANSLATION");
-            }
-            currModel.setTextShadowed(StringUtils.replace(translation.toString(), "\n", "<br/>"));
-        }
-        view.translate();
-    }
-
-    private boolean checkForAdd(StrBuilder translation, String wordTranslation, MainViewModel model) {
-        return StringUtils.isNotBlank(wordTranslation) &&
-                !StringUtils.containsIgnoreCase(translation, wordTranslation) &&
-                !StringUtils.containsIgnoreCase(model.getTextFaced(), wordTranslation);
-    }
-
     public void onShow() {
-        onNext(new CallBackChain<MainViewModel>() {
+        onCheckPamm(new CallBackChain<MainViewModel>() {
             @Override
             protected void onSuccess(MainViewModel result) {
                 opacityTimer.showSlowly();

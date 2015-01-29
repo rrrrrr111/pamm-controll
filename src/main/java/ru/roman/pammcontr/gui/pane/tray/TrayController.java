@@ -34,7 +34,7 @@ public class TrayController {
     }
 
     public void onShowInfo() {
-        GuiUtil.showInfoMessage("This is Bim  v." + Const.VERSION);
+        GuiUtil.showInfoMessage("This is " + Const.APP_NAME + " v." + Const.VERSION);
     }
 
     public void onStateChanged(ItemEvent e) {
