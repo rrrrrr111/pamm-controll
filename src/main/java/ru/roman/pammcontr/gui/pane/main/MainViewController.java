@@ -9,18 +9,22 @@ import ru.roman.pammcontr.gui.common.cbchain.CallBackChain;
 import ru.roman.pammcontr.gui.common.grid.ListTableModel;
 import ru.roman.pammcontr.gui.common.mvc.Controller;
 import ru.roman.pammcontr.gui.custom.tools.OpacityTimer;
+import ru.roman.pammcontr.gui.custom.widget.LoadingPanel;
 import ru.roman.pammcontr.gui.custom.widget.TransparentWindowSupport;
 import ru.roman.pammcontr.gui.pane.settings.Settings;
 import ru.roman.pammcontr.gui.pane.tray.TrayUtils;
 import ru.roman.pammcontr.model.PammInfo;
 import ru.roman.pammcontr.service.ServiceFactory;
 
+import ru.roman.pammcontr.service.fastpamm.FastPammService;
 import ru.roman.pammcontr.service.ghost.GhostController;
 import ru.roman.pammcontr.service.ghost.GhostService;
 import ru.roman.pammcontr.service.ghost.GhostServiceImpl;
-import ru.roman.pammcontr.service.translate.TranslationService;
 
+
+import java.awt.*;
 import java.util.List;
+import java.util.Objects;
 
 /** @author Roman 21.12.12 0:24 */
 public class MainViewController extends Controller<MainView, MainViewModel> implements GhostController {
@@ -29,7 +33,7 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
 
     private final OpacityTimer opacityTimer;
     private final GhostService ghostService;
-    private final TranslationService gooTranslator = ServiceFactory.getGoogleService();
+    private final FastPammService fastPammService = ServiceFactory.getFastPammService();
 
     private final TransparentWindowSupport supp = new TransparentWindowSupport();
 
@@ -47,16 +51,16 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
         state = State.SCHEDULED;
         TrayUtils.addTrayIcon();
 
-        final ListTableModel<String> tm = currModel.getTableModel();
+        final ListTableModel<Object> tm = currModel.getTableModel();
 
         tm.setColumnInfo(new String[]{"Name/Num", "p/l", "ignore"});
         for (PammInfo pi : Settings.get().getPammInfoList()) {
-            tm.getData().add(new String []{pi.getName() + "/" + pi.getNum(),
-                    pi.getProfitLossPercent().toString(),
-                    pi.isFlagToIgnoreDropDown().toString()
+            tm.getData().add(new Object []{pi.getName() + "/" + pi.getNum(),
+                    pi.getProfitLossPercent(),
+                    pi.isFlagToIgnoreDropDown()
             });
         }
-        currModel.setBorderInfo("Updated on " + (Settings.get().getLastCheckDate() == null ? "..." : UPDATE_TIME_FORMAT.format(Settings.get().getLastCheckDate())));
+        currModel.setBorderInfo("Last check at " + (Settings.get().getLastCheckDate() == null ? "..." : UPDATE_TIME_FORMAT.format(Settings.get().getLastCheckDate())));
         currModel.setInfoText("");
 
         view.fillWidgets(currModel);
@@ -67,13 +71,23 @@ public class MainViewController extends Controller<MainView, MainViewModel> impl
 
     protected void onCheckPamm(CallBackChain<MainViewModel> nextCallBack) {
 
+        LoadingPanel.activateSharedLoading();
 
+        final ListTableModel<Object> tm = currModel.getTableModel();
+        final List<String[]> pammList = fastPammService.getPammList();
+        if (pammList.isEmpty()) {
+            TrayUtils.showTrayNotification("FastPamm service not available", TrayIcon.MessageType.ERROR);
+            LoadingPanel.stopSharedLoading();
+            return;
+        }
 
+        for (String[] pArr: pammList) {
+            for (PammInfo pi : Settings.get().getPammInfoList()) {
 
+            }
+        }
 
-
-
-
+        LoadingPanel.stopSharedLoading();
         if (nextCallBack != null) {
             nextCallBack.run(currModel);
         }

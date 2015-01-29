@@ -10,11 +10,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class MainViewModel implements Model {
 
     private String borderInfo;
-    private ListTableModel<String> tableModel = new ListTableModel<>();
+    private ListTableModel<Object> tableModel = new ListTableModel<>();
     private String infoText;
 
 
-    public ListTableModel<String> getTableModel() {
+    public ListTableModel<Object> getTableModel() {
         return tableModel;
     }
 

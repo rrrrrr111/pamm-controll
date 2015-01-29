@@ -7,20 +7,19 @@ import ru.roman.pammcontr.service.config.XmlConfigService;
 import ru.roman.pammcontr.service.config.XmlConfigServiceImpl;
 
 
+import ru.roman.pammcontr.service.fastpamm.FastPammService;
 import ru.roman.pammcontr.service.http.HttpClientService;
 import ru.roman.pammcontr.service.http.HttpClientServiceImpl;
-import ru.roman.pammcontr.service.translate.GoogleService;
-import ru.roman.pammcontr.service.translate.TranslationService;
-import ru.roman.pammcontr.service.translate.YandexService;
-import ru.roman.pammcontr.util.Const;
+
+
 
 /** @author Roman 22.12.12 15:37 */
 public class ServiceFactory {
 
     private static volatile HttpClientService httpClientInstance;
-    private static volatile TranslationService googleService;
     private static volatile XmlConfigService xmlConfigService;
     private static volatile ConfigService configService;
+    private static volatile FastPammService fastPammService;
 
 
     public static synchronized HttpClientService getHttpClientInstance() {
@@ -30,11 +29,11 @@ public class ServiceFactory {
         return httpClientInstance;
     }
 
-    public static synchronized TranslationService getGoogleService() {
-        if (googleService == null) {
-            googleService = new GoogleService();
+    public static synchronized FastPammService getFastPammService() {
+        if (fastPammService == null) {
+            fastPammService = new FastPammService();
         }
-        return googleService;
+        return fastPammService;
     }
 
     public static synchronized XmlConfigService getXmlConfigService() {
